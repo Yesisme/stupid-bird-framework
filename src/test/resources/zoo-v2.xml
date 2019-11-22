@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+  
+	<bean id="zoo"
+        class="com.lym.spring.framework.service.v2.ZooService" >
+        <property name="accuntDao" ref="accuntDao"/>
+        <property name="itemDao" ref="itemDao"/>
+        <property name="owner" value="lym"/>
+        <property name="version" value="1.0"/>   
+	</bean> 
+  
+	<bean id="accuntDao"
+        class="com.lym.spring.framework.dao.v2.AccuntDao" >   
+	</bean> 
+  
+ 	<bean id="itemDao"
+ 		class="com.lym.spring.framework.dao.v2.ItemDao">
+ 	</bean>
+</beans>
