@@ -9,7 +9,7 @@
         <property name="accuntDao" ref="accuntDao"/>
         <property name="itemDao" ref="itemDao"/>
         <property name="owner" value="lym"/>
-        <property name="version" value="1.0"/>   
+        <property name="version" value="2"/>   
 	</bean> 
   
 	<bean id="accuntDao"

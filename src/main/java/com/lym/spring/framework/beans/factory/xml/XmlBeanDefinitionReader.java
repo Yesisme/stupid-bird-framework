@@ -75,6 +75,7 @@ public class XmlBeanDefinitionReader {
 		}
 	}
 
+	//传入一个<bean>
 	private void parsePropertyElement(Element element, BeanDefinition bd) {
 		Iterator ite = element.elementIterator(ATTRIBUTE_PROPERTY);
 		while(ite.hasNext()) {
@@ -86,6 +87,7 @@ public class XmlBeanDefinitionReader {
 		}
 	}
 
+	//解析<property>
 	private Object parsePropertyValue(Element propertyEle, String nameValue) {
 		boolean hasRefValue = propertyEle.attribute(ATTRIBUTE_REF)!=null;
 		boolean hasOriginValue = propertyEle.attribute(ATTRIBUTE_VALUE)!=null;
