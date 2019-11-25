@@ -37,6 +37,11 @@ public class XmlBeanDefinitionReader {
 	
 	private final String ATTRIBUTE_VALUE ="value";
 	
+	private final String ATTRIBUTE_CONSTRUCTOR="constructor-arg";
+	
+	private final String ATTRIBUTE_TYPE = "type";
+	
+	
 	Log log = LogFactory.getLog(XmlBeanDefinitionReader.class);
 	
 	public XmlBeanDefinitionReader(BeanDefinitionRegistry registry) {
@@ -59,6 +64,9 @@ public class XmlBeanDefinitionReader {
 				if(root.attributeValue(ATTRIBUTE_SCOPE)!=null) {
 					bd.setScope(root.attributeValue(ATTRIBUTE_SCOPE));
 				}
+				//解析构造constructorArgment
+				parseConstructorArgElements(ele,bd);
+				//接续property
 				parsePropertyElement(ele,bd);
 				this.registry.registryBeanDefinition(beanId, bd);
 			}
@@ -73,6 +81,23 @@ public class XmlBeanDefinitionReader {
 				}
 			}
 		}
+	}
+
+	private void parseConstructorArgElements(Element beanEle, BeanDefinition bd) {
+		
+		Iterator ite = beanEle.elementIterator(ATTRIBUTE_CONSTRUCTOR);
+		while(ite.hasNext()) {
+			Element construtorEle = (Element) ite.next();
+			parseConstructorArgElement(construtorEle,bd);
+		}
+		
+	}
+	
+	public void parseConstructorArgElement(Element construtorEle, BeanDefinition bd) {
+		  construtorEle.attribute(ATTRIBUTE_TYPE);
+		  construtorEle.attribute(ATTRIBUTE_NAME);
+		  Object obj = parsePropertyValue(construtorEle, null);
+		  bd.getConstructorArgment().addArgumentValue(obj);
 	}
 
 	//传入一个<bean>

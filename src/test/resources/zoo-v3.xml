@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+  
+	<bean id="zoo"
+        class="com.lym.spring.framework.service.v3.ZooService" >
+        <constructor-arg ref="accuntDao"/>
+        <constructor-arg ref="itemDao"/> 
+        <constructor-arg value="2"/>  
+	</bean> 
+  
+	<bean id="accuntDao"
+        class="com.lym.spring.framework.dao.v3.AccuntDao" >   
+	</bean> 
+  
+ 	<bean id="itemDao"
+ 		class="com.lym.spring.framework.dao.v3.ItemDao">
+ 	</bean>
+</beans>

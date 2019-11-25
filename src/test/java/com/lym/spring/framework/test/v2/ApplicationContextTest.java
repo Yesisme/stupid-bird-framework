@@ -22,7 +22,6 @@ public class ApplicationContextTest {
 		assertNotNull(zoo.getItemDao());
 		assertTrue(zoo.getAccuntDao() instanceof AccuntDao);
 		assertTrue(zoo.getItemDao() instanceof ItemDao);
-		
 		assertEquals("lym", zoo.getOwner());
 		assertEquals(2, zoo.getVersion());
 	}

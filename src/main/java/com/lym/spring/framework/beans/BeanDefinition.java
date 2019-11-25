@@ -17,6 +17,8 @@ public interface BeanDefinition {
 	
 	public static final String SCOPE_DEFAULT = ""; 
 	
+	public String getId();
+	
 	public void setScope(String scope);
 	public String getScope();
 	
@@ -28,4 +30,7 @@ public interface BeanDefinition {
 	
 	public List<PropertyValue> getPropertyValues();
 	
+	public ConstructorArgment getConstructorArgment();
+	
+	public boolean hasConstructorArgment();
 }

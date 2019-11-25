@@ -3,7 +3,11 @@ package com.lym.spring.framework.beans.factory.support;
 import com.lym.spring.framework.beans.config.RuntimeBeanReference;
 import com.lym.spring.framework.beans.config.TypedStringValue;
 import com.lym.spring.framework.beans.factory.BeanFactory;
-
+/**
+ * 解析RuntimeBeanReference和TypeStringValue获取到真正的值
+ * @author hp
+ *
+ */
 public class BeanDefinitionValueResolver {
 
 	private BeanFactory beanFactory;

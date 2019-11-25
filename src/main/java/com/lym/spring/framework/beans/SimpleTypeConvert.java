@@ -7,7 +7,11 @@ import java.util.Map;
 import com.lym.spring.framework.beans.propertyEditor.CustomBooleanEditor;
 import com.lym.spring.framework.beans.propertyEditor.CustomNumberEditor;
 import com.lym.spring.framework.utils.ClassUtil;
-
+/**
+ * CustomBooleanEditor和CustomNumber的封装，统一负责提供转换的接口
+ * @author hp
+ *
+ */
 public class SimpleTypeConvert implements TypeConverter{
 
 	private Map<Class<?>, PropertyEditor> defaultEditors;

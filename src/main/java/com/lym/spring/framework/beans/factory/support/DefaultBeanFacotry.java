@@ -37,7 +37,7 @@ public class DefaultBeanFacotry extends DefaultSingletonBeanRegistry implements 
 
 	private Object createBean(BeanDefinition bd) {
 		//初始化bean
-		Object bean = initBean(bd.getBeanClassName());
+		Object bean = initBean(bd);
 		
 		//注入bean
 		populateBean(bd,bean);
@@ -76,12 +76,18 @@ public class DefaultBeanFacotry extends DefaultSingletonBeanRegistry implements 
 		
 	}
 
-	public Object initBean(String beanClassName) {
-		try {
-			Class<?> clazz = this.getClassLoader().loadClass(beanClassName);
-			return clazz.newInstance();
-		}catch(Exception e) {
-			throw new BeanCreationException("create bean "+"【"+beanClassName+"】"+"fail");
+	public Object initBean(BeanDefinition bd) {
+		if(bd.hasConstructorArgment()) {
+			ConstructorResolver resolver = new ConstructorResolver(this);
+			return resolver.autowireConstructor(bd);
+		}else {
+			String beanClassName = bd.getBeanClassName();
+			try {
+				Class<?> clazz = this.getClassLoader().loadClass(beanClassName);
+				return clazz.newInstance();
+			}catch(Exception e) {
+				throw new BeanCreationException("create bean "+"【"+beanClassName+"】"+"fail");
+			}
 		}
 	}
 	@Override
