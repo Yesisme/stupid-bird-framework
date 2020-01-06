@@ -11,13 +11,13 @@ import java.net.URL;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-public class PackageSourceLoader {
+public class PackageReSourceLoader {
 
-	private static final Log logger = LogFactory.getLog(PackageSourceLoader.class);
+	private static final Log logger = LogFactory.getLog(PackageReSourceLoader.class);
 
 	private final ClassLoader classloder;
 	
-	public PackageSourceLoader() {
+	public PackageReSourceLoader() {
 		this.classloder = ClassUtil.getDefaultClassLoader();
 	}
 

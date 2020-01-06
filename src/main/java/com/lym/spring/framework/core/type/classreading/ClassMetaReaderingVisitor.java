@@ -1,11 +1,12 @@
 package com.lym.spring.framework.core.type.classreading;
 
+import com.lym.spring.framework.core.type.ClassMetadata;
 import com.lym.spring.framework.utils.ClassUtil;
 import jdk.internal.org.objectweb.asm.Opcodes;
 import org.springframework.asm.ClassVisitor;
 import org.springframework.asm.SpringAsmInfo;
 
-public class ClassMetaReaderingVisitor extends ClassVisitor {
+public class ClassMetaReaderingVisitor extends ClassVisitor implements ClassMetadata {
 
     private String className;
 
@@ -15,9 +16,16 @@ public class ClassMetaReaderingVisitor extends ClassVisitor {
 
     private boolean isInterface;
 
+    private boolean hasSuperClass;
+
     private String[] interfaces;
 
     private String superClassName;
+
+    @Override
+    public boolean hasSuperClass() {
+        return false;
+    }
 
     public ClassMetaReaderingVisitor(int i) {
         super(i);
@@ -88,5 +96,13 @@ public class ClassMetaReaderingVisitor extends ClassVisitor {
 
     public void setSuperClassName(String superClassName) {
         this.superClassName = superClassName;
+    }
+
+    public boolean isHasSuperClass() {
+        return hasSuperClass;
+    }
+
+    public void setHasSuperClass(boolean hasSuperClass) {
+        this.hasSuperClass = hasSuperClass;
     }
 }
