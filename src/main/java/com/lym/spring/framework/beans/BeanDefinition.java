@@ -33,4 +33,10 @@ public interface BeanDefinition {
 	public ConstructorArgment getConstructorArgment();
 	
 	public boolean hasConstructorArgment();
+
+	boolean hasBeanClass();
+
+	Class<?> getBeanClass();
+
+	Class<?> resolveBeanClass(ClassLoader classLoader) throws ClassNotFoundException;
 }

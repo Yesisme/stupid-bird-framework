@@ -18,6 +18,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 public class ClassPathBeanDefinitionScanner {
@@ -37,17 +39,19 @@ public class ClassPathBeanDefinitionScanner {
     }
 
 
-    public void doScanner(String packageToScan) {
+    public Set<BeanDefinition> doScanner(String packageToScan) {
 
+        Set<BeanDefinition> beanDefinitions = new LinkedHashSet<BeanDefinition>();
         String[] basePackages = StringUtil.tokenizeToStringArray(packageToScan,",");
 
         for(String basePackage : basePackages){
             Set<BeanDefinition> candidateComponents = findCandidateComponents(basePackage);
             for (BeanDefinition bd:candidateComponents) {
+                beanDefinitions.add(bd);
                 this.registry.registryBeanDefinition(bd.getId(),bd);
             }
         }
-
+        return beanDefinitions;
     }
 
 
@@ -71,10 +75,7 @@ public class ClassPathBeanDefinitionScanner {
             }catch (Exception e){
                 throw new BeanDifinitionStoreException("Faild to reader candidate componetn class "+resource);
             }
-
         }
         return  beanDefinitions;
     }
-
-
 }

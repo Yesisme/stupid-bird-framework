@@ -4,10 +4,10 @@ package com.lym.spring.framework.beans.config;
  */
 import com.lym.spring.framework.beans.factory.BeanFactory;
 
-public interface ConfigurableBeanFactory extends BeanFactory{
+public interface ConfigurableBeanFactory extends AutowireCapableBeanFactory{
 
-	public void setClassLoader(ClassLoader classLoader);
+	void setClassLoader(ClassLoader classLoader);
 	
-	public ClassLoader getClassLoader();
+	ClassLoader getClassLoader();
 	
 }

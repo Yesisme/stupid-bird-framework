@@ -10,6 +10,7 @@ import com.lym.spring.framework.beans.BeanDefinition;
 import com.lym.spring.framework.beans.SimpleTypeConvert;
 import com.lym.spring.framework.beans.TypeConverter;
 import com.lym.spring.framework.beans.config.ConfigurableBeanFactory;
+import com.lym.spring.framework.beans.config.DependencyDescriptor;
 import com.lym.spring.framework.beans.factory.BeanFactory;
 import com.lym.spring.framework.beans.factory.PropertyValue;
 import com.lym.spring.framework.utils.ClassUtil;
@@ -110,5 +111,29 @@ public class DefaultBeanFacotry extends DefaultSingletonBeanRegistry implements 
 	public ClassLoader getClassLoader() {
 	
 		return this.classLoader;
+	}
+
+	@Override
+	public Object resolveDependency(DependencyDescriptor dp) {
+		Class<?> typeToMatch = dp.getFieldType();
+		for(BeanDefinition bd:this.beanDefinitionMap.values()){
+			resolveBeanClass(bd);
+			Class<?> beanClass = bd.getBeanClass();
+			if(typeToMatch.isAssignableFrom(beanClass)){
+				getBean(bd.getId());
+			}
+		}
+		return  null;
+	}
+
+	public void resolveBeanClass(BeanDefinition bd){
+		if(bd.hasBeanClass()){
+			return;
+		}
+		try {
+			bd.resolveBeanClass(this.getClassLoader());
+		}catch (Exception e){
+			throw new RuntimeException("can't load class:"+bd.getBeanClassName());
+		}
 	}
 }

@@ -12,6 +12,8 @@ public class GenericBeanDefinition implements BeanDefinition{
 	private String id;
 	
 	private String beanClassName;
+
+	private Class<?> beanClass;
 	
 	//默认单例为true
 	private boolean singleton = true;
@@ -90,5 +92,29 @@ public class GenericBeanDefinition implements BeanDefinition{
 	public boolean hasConstructorArgment() {
 		
 		return !this.constructorArgment.getValueHolders().isEmpty();
+	}
+
+	@Override
+	public boolean hasBeanClass() {
+		return this.beanClassName!=null;
+	}
+
+	@Override
+	public Class<?> getBeanClass() {
+		if(this.beanClass == null) {
+			throw new IllegalStateException(this.getBeanClassName() +"has not be into ");
+		}
+		return this.beanClass;
+	}
+
+	@Override
+	public Class<?> resolveBeanClass(ClassLoader classLoader) throws ClassNotFoundException {
+		Class<?> beanClass = getBeanClass();
+		if(beanClass == null){
+			return null;
+		}
+		Class<?> resovleBeanClass = classLoader.loadClass(beanClassName);
+		this.beanClass = resovleBeanClass;
+		return this.beanClass;
 	}
 }
