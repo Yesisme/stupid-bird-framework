@@ -34,8 +34,8 @@ public class ClassPathBeanDefinitionScanner {
     private final Log logger = LogFactory.getLog(getClass());
 
 
-    public ClassPathBeanDefinitionScanner(DefaultBeanFacotry factory){
-        this.registry = factory;
+    public ClassPathBeanDefinitionScanner(BeanDefinitionRegistry registry){
+        this.registry = registry;
     }
 
 

@@ -5,7 +5,8 @@ import com.lym.spring.framework.beans.factory.support.DefaultBeanFacotry;
 import com.lym.spring.framework.beans.factory.xml.XmlBeanDefinitionReader;
 import com.lym.spring.framework.core.io.ClassPathResource;
 import com.lym.spring.framework.dao.v4.AccountDao;
-import com.lym.spring.framework.service.v1.ZooService;
+
+import com.lym.spring.framework.service.v4.ZooService;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -18,7 +19,7 @@ public class DependencyDescriptorTest {
         DefaultBeanFacotry facotry = new DefaultBeanFacotry();
         XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(facotry);
         reader.loadBeanDefinition(new ClassPathResource("zoo-v4.xml"));
-        Field f = ZooService.class.getDeclaredField("account");
+        Field f = ZooService.class.getDeclaredField("accountDao");
         DependencyDescriptor descritor = new DependencyDescriptor(f,true);
         Object o = facotry.resolveDependency(descritor);
         Assert.assertTrue(o instanceof AccountDao);
