@@ -3,23 +3,27 @@ package com.lym.spring.framework.beans.factory.support;
 import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.lym.spring.framework.beans.BeanDefinition;
 import com.lym.spring.framework.beans.SimpleTypeConvert;
 import com.lym.spring.framework.beans.TypeConverter;
-import com.lym.spring.framework.beans.config.ConfigurableBeanFactory;
-import com.lym.spring.framework.beans.config.DependencyDescriptor;
-import com.lym.spring.framework.beans.factory.BeanFactory;
 import com.lym.spring.framework.beans.factory.PropertyValue;
+import com.lym.spring.framework.beans.factory.config.BeanPostProcessor;
+import com.lym.spring.framework.beans.factory.config.ConfigurableBeanFactory;
+import com.lym.spring.framework.beans.factory.config.DependencyDescriptor;
+import com.lym.spring.framework.beans.factory.config.InstantiationAwareBeanPostProcessor;
 import com.lym.spring.framework.utils.ClassUtil;
 
-public class DefaultBeanFacotry extends DefaultSingletonBeanRegistry implements BeanFactory,BeanDefinitionRegistry,ConfigurableBeanFactory{
+public class DefaultBeanFacotry extends DefaultSingletonBeanRegistry implements BeanDefinitionRegistry,ConfigurableBeanFactory{
 
 	private ConcurrentHashMap<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<>(64);
 	
 	private ClassLoader classLoader;
+	
+	private LinkedList<BeanPostProcessor> beanPostProcessors = new LinkedList<>();
 	
 	@Override
 	public Object getBean(String beanId) {
@@ -47,6 +51,12 @@ public class DefaultBeanFacotry extends DefaultSingletonBeanRegistry implements 
 	}
 
 	private void populateBean(BeanDefinition bd, Object bean) {
+		
+		for(BeanPostProcessor beanPostProcessor:this.getBeanPostProcessor()) {
+			if(beanPostProcessor instanceof InstantiationAwareBeanPostProcessor) {
+				((InstantiationAwareBeanPostProcessor) beanPostProcessor).postProcessPropertyValue(bean, bd.getBeanClassName());
+			}
+		}
 		
 		List<PropertyValue> pvs = bd.getPropertyValues();
 		if(pvs==null || pvs.size()==0) {
@@ -78,6 +88,7 @@ public class DefaultBeanFacotry extends DefaultSingletonBeanRegistry implements 
 	}
 
 	public Object initBean(BeanDefinition bd) {
+		//构造方法
 		if(bd.hasConstructorArgment()) {
 			ConstructorResolver resolver = new ConstructorResolver(this);
 			return resolver.autowireConstructor(bd);
@@ -104,13 +115,13 @@ public class DefaultBeanFacotry extends DefaultSingletonBeanRegistry implements 
 
 	@Override
 	public void setClassLoader(ClassLoader classLoader) {
-		this.classLoader = classLoader==null?ClassUtil.getDefaultClassLoader():classLoader;
+		this.classLoader = classLoader;
 	}
 
 	@Override
 	public ClassLoader getClassLoader() {
 	
-		return this.classLoader;
+		return this.classLoader = classLoader==null?ClassUtil.getDefaultClassLoader():classLoader;
 	}
 
 	@Override
@@ -120,7 +131,7 @@ public class DefaultBeanFacotry extends DefaultSingletonBeanRegistry implements 
 			resolveBeanClass(bd);
 			Class<?> beanClass = bd.getBeanClass();
 			if(typeToMatch.isAssignableFrom(beanClass)){
-				getBean(bd.getId());
+				return this.getBean(bd.getId());
 			}
 		}
 		return  null;
@@ -135,5 +146,15 @@ public class DefaultBeanFacotry extends DefaultSingletonBeanRegistry implements 
 		}catch (Exception e){
 			throw new RuntimeException("can't load class:"+bd.getBeanClassName());
 		}
+	}
+
+	@Override
+	public void addPostBeanProcessor(BeanPostProcessor beanPostProcessor) {
+		this.beanPostProcessors.add(beanPostProcessor);
+	}
+
+	@Override
+	public List<BeanPostProcessor> getBeanPostProcessor() {
+		return this.beanPostProcessors;
 	}
 }

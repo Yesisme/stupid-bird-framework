@@ -1,4 +1,4 @@
-package com.lym.spring.framework.beans.config;
+package com.lym.spring.framework.beans.factory.config;
 /**
  * 存单例的对象和获取单例的对象
  * @author Administrator

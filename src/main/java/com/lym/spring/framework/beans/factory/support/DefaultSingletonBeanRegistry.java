@@ -2,7 +2,7 @@ package com.lym.spring.framework.beans.factory.support;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.lym.spring.framework.beans.config.SingletonBeanRegistry;
+import com.lym.spring.framework.beans.factory.config.SingletonBeanRegistry;
 import com.lym.spring.framework.utils.Assert;
 /**
  * 存单例对象

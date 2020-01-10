@@ -1,4 +1,4 @@
-package com.lym.spring.framework.beans.config;
+package com.lym.spring.framework.beans.factory.config;
 
 public class TypedStringValue {
 

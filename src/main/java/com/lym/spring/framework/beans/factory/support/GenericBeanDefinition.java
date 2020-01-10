@@ -96,7 +96,7 @@ public class GenericBeanDefinition implements BeanDefinition{
 
 	@Override
 	public boolean hasBeanClass() {
-		return this.beanClassName!=null;
+		return this.beanClass!=null;
 	}
 
 	@Override
@@ -109,8 +109,8 @@ public class GenericBeanDefinition implements BeanDefinition{
 
 	@Override
 	public Class<?> resolveBeanClass(ClassLoader classLoader) throws ClassNotFoundException {
-		Class<?> beanClass = getBeanClass();
-		if(beanClass == null){
+		String beanClassName = getBeanClassName();
+		if(beanClassName == null){
 			return null;
 		}
 		Class<?> resovleBeanClass = classLoader.loadClass(beanClassName);

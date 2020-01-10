@@ -1,4 +1,4 @@
-package com.lym.spring.framework.beans.config;
+package com.lym.spring.framework.beans.factory.config;
 
 import java.lang.reflect.Field;
 

@@ -6,8 +6,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.lym.spring.framework.beans.config.RuntimeBeanReference;
-import com.lym.spring.framework.beans.config.TypedStringValue;
+import com.lym.spring.framework.beans.factory.config.RuntimeBeanReference;
+import com.lym.spring.framework.beans.factory.config.TypedStringValue;
 import com.lym.spring.framework.beans.factory.support.BeanDefinitionValueResolver;
 import com.lym.spring.framework.beans.factory.support.DefaultBeanFacotry;
 import com.lym.spring.framework.beans.factory.xml.XmlBeanDefinitionReader;

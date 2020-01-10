@@ -8,8 +8,8 @@ import java.util.List;
 import org.junit.Test;
 
 import com.lym.spring.framework.beans.BeanDefinition;
-import com.lym.spring.framework.beans.config.RuntimeBeanReference;
 import com.lym.spring.framework.beans.factory.PropertyValue;
+import com.lym.spring.framework.beans.factory.config.RuntimeBeanReference;
 import com.lym.spring.framework.beans.factory.support.DefaultBeanFacotry;
 import com.lym.spring.framework.beans.factory.xml.XmlBeanDefinitionReader;
 import com.lym.spring.framework.core.io.ClassPathResource;

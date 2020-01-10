@@ -1,5 +1,7 @@
 package com.lym.spring.framework.context.support;
 
+import com.lym.spring.framework.beans.factory.annotation.AutowiredAnnotationProcessor;
+import com.lym.spring.framework.beans.factory.config.ConfigurableBeanFactory;
 import com.lym.spring.framework.beans.factory.support.DefaultBeanFacotry;
 import com.lym.spring.framework.beans.factory.xml.XmlBeanDefinitionReader;
 import com.lym.spring.framework.context.ApplicationContext;
@@ -17,8 +19,15 @@ public abstract class AbstractApplicationContext implements ApplicationContext{
 		Resource resource = this.getResourceByPath(filePath);
 		reader.loadBeanDefinition(resource);
 		factory.setClassLoader(this.getClassLoader());
+		registryBenaPostProcessor(factory);
 	}
 	
+	protected  void registryBenaPostProcessor(ConfigurableBeanFactory factory) {
+		AutowiredAnnotationProcessor processor = new AutowiredAnnotationProcessor();
+		processor.setBeanFactory(factory);
+		factory.addPostBeanProcessor(processor);
+	}
+
 	public abstract Resource getResourceByPath(String filePath);
 	
 	

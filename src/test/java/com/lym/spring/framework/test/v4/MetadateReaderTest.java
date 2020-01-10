@@ -28,6 +28,5 @@ public class MetadateReaderTest {
         assertFalse(amd.isFinal());
         Assert.assertEquals("com.lym.spring.framework.service.v4.ZooService",amd.getClassName());
 
-
     }
 }

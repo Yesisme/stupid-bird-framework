@@ -20,7 +20,7 @@ public class ClassPathBeandefinitionScannerTest {
         String basePackage = "com.lym.spring.framework.dao.v4,com.lym.spring.framework.service.v4";
         ClassPathBeanDefinitionScanner scanner = new ClassPathBeanDefinitionScanner(factory);
 
-        scanner.doScanner(basePackage);
+        scanner.doScan(basePackage);
 
         String annotaiton = Component.class.getName();
 

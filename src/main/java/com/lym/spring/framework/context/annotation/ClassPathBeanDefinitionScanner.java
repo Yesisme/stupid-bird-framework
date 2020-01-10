@@ -39,7 +39,7 @@ public class ClassPathBeanDefinitionScanner {
     }
 
 
-    public Set<BeanDefinition> doScanner(String packageToScan) {
+    public Set<BeanDefinition> doScan(String packageToScan) {
 
         Set<BeanDefinition> beanDefinitions = new LinkedHashSet<BeanDefinition>();
         String[] basePackages = StringUtil.tokenizeToStringArray(packageToScan,",");

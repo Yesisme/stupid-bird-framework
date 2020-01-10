@@ -4,8 +4,6 @@ package com.lym.spring.framework.beans.factory.xml;
 import java.io.InputStream;
 import java.util.Iterator;
 
-import com.lym.spring.framework.context.annotation.ClassPathBeanDefinitionScanner;
-import com.lym.spring.framework.utils.StringUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dom4j.Document;
@@ -13,13 +11,15 @@ import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
 import com.lym.spring.framework.beans.BeanDefinition;
-import com.lym.spring.framework.beans.config.RuntimeBeanReference;
-import com.lym.spring.framework.beans.config.TypedStringValue;
 import com.lym.spring.framework.beans.factory.BeanDifinitionStoreException;
 import com.lym.spring.framework.beans.factory.PropertyValue;
+import com.lym.spring.framework.beans.factory.config.RuntimeBeanReference;
+import com.lym.spring.framework.beans.factory.config.TypedStringValue;
 import com.lym.spring.framework.beans.factory.support.BeanDefinitionRegistry;
 import com.lym.spring.framework.beans.factory.support.GenericBeanDefinition;
+import com.lym.spring.framework.context.annotation.ClassPathBeanDefinitionScanner;
 import com.lym.spring.framework.core.io.Resource;
+import com.lym.spring.framework.utils.StringUtil;
 
 public class XmlBeanDefinitionReader {
 
@@ -70,7 +70,7 @@ public class XmlBeanDefinitionReader {
 				if(this.isDefaultNamespace(namespaceURI)){
 					parseDefaultElement(ele);
 				}else if(this.isContextNamespace(namespaceURI)){
-
+					parseComponentElement(ele);
 				}
 
 			}
@@ -104,7 +104,7 @@ public class XmlBeanDefinitionReader {
 	private void parseComponentElement(Element element) {
 		String basePackage = element.attributeValue(BASE_PACKAGE_ATTRIBUTE);
 		ClassPathBeanDefinitionScanner scanner = new ClassPathBeanDefinitionScanner(registry);
-		scanner.doScanner(basePackage);
+		scanner.doScan(basePackage);
 	}
 
 	private void parseConstructorArgElements(Element beanEle, BeanDefinition bd) {
